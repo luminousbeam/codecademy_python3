@@ -11,9 +11,10 @@ We will use loops, lists, and arithmetic to create a function that will find a l
 
 
 The line we will end up with will have a formula that looks like:
-```
-y = m*x + b
-```
+
+`y = m*x + b`
+
+
 `m` is the slope of the line and `b` is the intercept, where the line crosses the y-axis.
 
 Create a function called `get_y()` that takes in `m`, `b`, and `x` and returns what the `y` value would be for that `x` on that line!
