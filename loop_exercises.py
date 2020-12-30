@@ -221,3 +221,78 @@ print(max_num([50, -10, 0, 75, 20]))
 # The function should return a list of the indices where the values were equal in lst1 and lst2.
 
 # For example, the following code should return [0, 2, 3]
+
+#Way one
+# def same_values(lst1, lst2):
+#     same_index = []
+#     for x in range(len(lst1)):
+#         # print("x:" + str(x))
+#         if lst1[x] == lst2[x]:
+#             # print("lst1[x]:" + str(lst1[x]))
+#             # print("lst2[x]:" + str(lst2[x]))
+#             same_index.append(x)
+#     return same_index
+
+#Way two
+def same_values(lst1, lst2):
+    same_index = [x for x in range(len(lst1)) if lst1[x] == lst2[x]]
+    return same_index
+
+print(same_values([5, 1, -10, 3, 3], [5, 10, -10, 3, 5]))
+
+# Reversed List
+
+# Create a function named reversed_list() that takes two lists of the same size as parameters named lst1 and lst2.
+
+# The function should return True if lst1 is the same as lst2 reversed. The function should return False otherwise.
+
+# For example, reversed_list([1, 2, 3], [3, 2, 1]) should return True.
+
+# One way
+# def reversed_list(lst1, lst2):
+#     lst2_rev = []
+#     for i in range(len(lst2)-1, -1, -1):
+#         lst2_rev.append(lst2[i])
+#     # print(lst2_rev)
+#     if lst1 == lst2_rev:
+#         return True
+#     else:
+#         return False
+
+# Second way
+# def reversed_list(lst1, lst2):
+#     lst2_rev = []
+#     for i in lst2[::-1]:
+#         lst2_rev.append(i)
+#     if lst1 == lst2_rev:
+#         return True
+#     else:
+#         return False
+
+# Third way
+# def reversed_list(lst1, lst2):
+#     lst2_rev = []
+#     for i in reversed(lst2):
+#         lst2_rev.append(i)
+#     if lst1 == lst2_rev:
+#         return True
+#     else:
+#         return False
+
+# Fourth way
+# def reversed_list(lst1, lst2):
+#     lst2_rev = []
+#     for i in range(len(lst2)):
+#         lst2_rev.append(lst2[-(i+1)])
+#     if lst1 == lst2_rev:
+#         return True
+#     else:
+#         return False
+
+# Fifth way
+def reversed_list(lst1, lst2):
+    lst2_rev = [i for i in reversed(lst2)]
+    return True if lst1 == lst2_rev else False
+
+print(reversed_list([1, 2, 3], [3, 2, 1]))
+print(reversed_list([1, 5, 3], [3, 2, 1]))
