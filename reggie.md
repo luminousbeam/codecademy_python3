@@ -11,21 +11,22 @@ We will use loops, lists, and arithmetic to create a function that will find a l
 
 
 The line we will end up with will have a formula that looks like:
-```
+
 y = m*x + b
-```
+
+
 `m` is the slope of the line and `b` is the intercept, where the line crosses the y-axis.
 
 Create a function called `get_y()` that takes in `m`, `b`, and `x` and returns what the `y` value would be for that `x` on that line!
 
-
+```
 def get_y(m, b, x):
   y = m*x + b
   return y
 
 get_y(1, 0, 7) == 7
 get_y(5, 10, 3) == 25
-
+```
 
 
 Reggie wants to try a bunch of different `m` values and `b` values and see which line produces the least error. To calculate error between a point and a line, he wants a function called `calculate_error()`, which will take in `m`, `b`, and an [x, y] point called `point` and return the distance between the line and the point.
@@ -39,16 +40,17 @@ To find the distance:
 
 The distance represents the error between the line `y = m*x + b` and the `point` given.
 
-
+```
 def calculate_error(m, b, point):
   x_point, y_point = point
   y = m*x_point + b
   distance = abs(y - y_point)
   return distance
-
+```
 
 Let's test this function!
 
+```
 #this is a line that looks like y = x, so (3, 3) should lie on it. thus, error should be 0:
 print(calculate_error(1, 0, (3, 3)))
 #the point (3, 4) should be 1 unit away from the line y = x:
@@ -58,10 +60,15 @@ print(calculate_error(1, -1, (3, 3)))
 #the point (3, 3) should be 5 units away from the line y = -x + 1:
 print(calculate_error(-1, 1, (3, 3)))
 
+# Output
+# 0
+# 1
+# 1
+# 5
+```
 Great! Reggie's datasets will be sets of points. For example, he ran an experiment comparing the width of bouncy balls to how high they bounce:
 
-
-datapoints = [(1, 2), (2, 0), (3, 4), (4, 4), (5, 3)]
+`datapoints = [(1, 2), (2, 0), (3, 4), (4, 4), (5, 3)]`
 
 The first datapoint, `(1, 2)`, means that his 1cm bouncy ball bounced 2 meters. The 4cm bouncy ball bounced 4 meters.
 
@@ -69,16 +76,17 @@ As we try to fit a line to this data, we will need a function called `calculate_
 
 `calculate_all_error` should iterate through each `point` in `points` and calculate the error from that point to the line (using `calculate_error`). It should keep a running total of the error, and then return that total after the loop.
 
-
+```
 def calculate_all_error(m, b, points):
     total_error = 0
     for point in datapoints:
         point_error = calculate_error(m, b, point)
         total_error += point_error
     return total_error
+```
 
 Let's test this function!
-
+```
 #every point in this dataset lies upon y=x, so the total error should be zero:
 datapoints = [(1, 1), (3, 3), (5, 5), (-1, -1)]
 print(calculate_all_error(1, 0, datapoints))
@@ -91,12 +99,17 @@ print(calculate_all_error(1, 1, datapoints))
 datapoints = [(1, 1), (3, 3), (5, 5), (-1, -1)]
 print(calculate_all_error(1, -1, datapoints))
 
-
 #the points in this dataset are 1, 5, 9, and 3 units away from y = -x + 1, respectively, so total error should be
 # 1 + 5 + 9 + 3 = 18
 datapoints = [(1, 1), (3, 3), (5, 5), (-1, -1)]
 print(calculate_all_error(-1, 1, datapoints))
 
+#Output
+# 0
+# 4
+# 4
+# 18
+```
 Great! It looks like we now have a function that can take in a line and Reggie's data and return how much error that line produces when we try to fit it to the data.
 
 Our next step is to find the `m` and `b` that minimizes this error, and thus fits the data best!
@@ -110,13 +123,11 @@ Using a list comprehension, let's create a list of possible `m` values to try. M
 
 Hint (to view this hint, either double-click this cell or highlight the following white space): <font color="white">you can go through the values in range(-100, 100) and multiply each one by 0.1</font>
 
-
-
-possible_ms = [m * 0.1 for m in range(-100, 101)]
+`possible_ms = [m * 0.1 for m in range(-100, 101)]`
 
 Now, let's make a list of `possible_bs` to check that would be the values from -20 to 20 inclusive, in steps of 0.1:
 
-possible_bs = [b * 0.1 for b in range(-200, 201)]
+`possible_bs = [b * 0.1 for b in range(-200, 201)]`
 
 We are going to find the smallest error. First, we will make every possible `y = m*x + b` line by pairing all of the possible `m`s with all of the possible `b`s. Then, we will see which `y = m*x + b` line produces the smallest total error with the set of data stored in `datapoint`.
 
@@ -135,8 +146,7 @@ By the end of these nested loops, the `smallest_error` should hold the smallest 
 
 Print out `best_m`, `best_b` and `smallest_error` after the loops.
 
-
-
+```
 datapoints = [(1, 2), (2, 0), (3, 4), (4, 4), (5, 3)]
 smallest_error = float("inf")
 best_m = 0
@@ -152,14 +162,15 @@ for m in possible_ms:
        	 
 print(best_m, best_b, smallest_error)
 
+#Output: 0.30000000000000004 1.7000000000000002 4.999999999999999
+```
 
 ## Part 3: What does our model predict?
 
 Now we have seen that for this set of observations on the bouncy balls, the line that fits the data best has an `m` of 0.3 and a `b` of 1.7:
 
-```
 y = 0.3x + 1.7
-```
+
 
 This line produced a total error of 5.
 
@@ -169,7 +180,7 @@ In other words, what is the output of `get_y()` when we call it with:
 * b = 1.7
 * x = 6
 
-get_y(0.3, 1.7, 6)
+`get_y(0.3, 1.7, 6)`
 
 Our model predicts that the 6cm ball will bounce 3.5m.
 
