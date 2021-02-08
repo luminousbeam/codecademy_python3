@@ -14,7 +14,7 @@ with open('files/test_files/just_the_first.txt') as first_line_doc:
   print(first_line)
 
 # Writing a file
-with open('files/test_files/bad_bands.txt', 'w') as bad_bands_doc:
+with open('files/output_files/bad_bands.txt', 'w') as bad_bands_doc:
   bad_bands_doc.write("Nickelback")
 
 # Appending to a file
